@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .clickerButton{
+            height: 100px;
+            width: 100px;
+            border-radius: 50%;
+            border: solid darkred 5px;
+            background-color: red;
+            cursor: pointer;
+            margin: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            user-select: none;
+        }
+    </style>
+    <title>128a</title>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script>
+        let points = 0;
+        let click = 1;
+
+        updateView();
+
+        function updateView(){
+            document.getElementById('app').innerHTML = /*HTML*/`
+            <div class="clickerButton" onclick="clickButton()">Klikk meg</div>
+            <div id="points">${points}</div>
+            <button onclick="upgradeButton()">Upgrade</button>
+            `;
+        }
+
+        function clickButton(){
+            points += click;
+            updateView();
+        }
+
+        function upgradeButton(){
+            if(points >= 10){
+                points -= 10;
+                click++;
+            }
+            updateView();
+        }
+    </script>
+</body>
+</html>

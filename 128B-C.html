@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>128b-c</title>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script>
+        let secretNumber = getRandomNumber(1, 100);
+        let infoText = 'Gjett et tall!'
+        let tries = 0;
+
+        updateView();
+        function updateView(){
+            document.getElementById('app').innerHTML = /*HTML*/`
+            <div>${infoText}</div>
+            <input type="number" id="userGuess" onchange="compareNumbers(this.value)">
+            <div>Forsøk: ${tries}</div>
+            <button onclick="location.reload()">Reset</button>
+            `;
+        }
+
+        function compareNumbers(userGuess){
+            tries++;
+            if(userGuess < secretNumber){
+                infoText = "For lavt!"
+            }
+            else if(userGuess > secretNumber){
+                infoText = "For høyt!"
+            }
+            else{
+                infoText = "Gratulerer, helt riktig!"
+            }
+            updateView();
+        }
+
+        function getRandomNumber(min, max) {
+            return min + Math.floor(Math.random() * (max - min + 1));
+        }
+
+    </script>
+</body>
+</html>

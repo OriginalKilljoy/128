@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        .page{
+            display: flex;
+            flex-direction: column;
+            height: 99vh;
+            width: 99vw;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .title{
+            font-size: 200%;
+            margin: 10px;
+        }
+
+        .arena{
+            height: 300px;
+            width: 450px;
+            border: solid black 3px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr 8fr;
+            grid-template-areas:
+            "points points"
+            "player computer";
+        }
+
+        #playerHand{
+            grid-area: player;
+            justify-self: start;
+        }
+
+        #computerHand{
+            grid-area: computer;
+            justify-self: end;
+        }
+
+        .playerPoints{
+            grid-area: points;
+            justify-self: start;
+            font-size: 120%;
+            margin: 5px;
+        }
+
+        .computerPoints{
+            grid-area: points;
+            justify-self: end;
+            font-size: 120%;
+            margin: 5px;
+        }
+
+        .buttons{
+            margin: 10px;
+        }
+    </style>
+    <title>128d</title>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script>
+
+    let playerPoints = 0;
+    let computerPoints = 0;
+    let playerHand = `<img src="img/blank.jpg">`;
+    let computerHand = `<img src="img/blank.jpg">`;
+
+        updateView();
+        function updateView(){
+            document.getElementById('app').innerHTML = /*HTML*/`
+            <div class="page">
+                <div class="title">Stein, saks, papir</div>
+                <div class="arena">
+                    <div class="playerPoints">${playerPoints}</div>
+                    <div class="computerPoints">${computerPoints}</div>
+                    <div id="playerHand">${playerHand}</div>    
+                    <div id="computerHand">${computerHand}</div>    
+                </div>
+                <div class="buttons">
+                    <button onclick="playerMove('rock')">Stein</button>
+                    <button onclick="playerMove('scissors')">Saks</button>
+                    <button onclick="playerMove('paper')">Papir</button>
+                </div>
+            </div>
+            `;
+        }
+
+        function playerMove(move){
+            if(move == 'rock'){
+                playerHand = `<img src="img/rock.jpg">`;
+                compareMoves();
+            }
+            else if(move == 'scissors'){
+                playerHand = `<img src="img/scissors.jpg">`;
+                compareMoves();
+            }
+            else{
+                playerHand = `<img src="img/paper.jpg">`;
+                compareMoves();
+            }
+            updateView();
+        }
+
+        function compareMoves(){
+            getRandomMove();
+            if(playerHand == computerHand){
+                playerPoints++;
+                computerPoints++;
+            }
+            else if(playerHand == `<img src="img/rock.jpg">` && computerHand == `<img src="img/scissors.jpg">`){
+                playerPoints++;
+            }
+            else if(playerHand == `<img src="img/rock.jpg">` && computerHand == `<img src="img/paper.jpg">`){
+                computerPoints++;
+            }
+            else if(playerHand == `<img src="img/paper.jpg">` && computerHand == `<img src="img/rock.jpg">`){
+                playerPoints++;
+            }
+            else if(playerHand == `<img src="img/paper.jpg">` && computerHand == `<img src="img/scissors.jpg">`){
+                computerPoints++;
+            }
+            else if(playerHand == `<img src="img/scissors.jpg">` && computerHand == `<img src="img/paper.jpg">`){
+                playerPoints++;
+            }
+            else if(playerHand == `<img src="img/scissors.jpg">` && computerHand == `<img src="img/rock.jpg">`){
+                computerPoints++;
+            }
+            updateView();
+        }
+
+        function getRandomMove() {
+            computerHand = Math.floor(Math.random() * 3);
+            if(computerHand == 0){
+                computerHand = `<img src="img/rock.jpg">`;
+            }
+            else if(computerHand == 1){
+                computerHand = `<img src="img/scissors.jpg">`;
+            }
+            else{
+                computerHand = `<img src="img/paper.jpg">`;
+            }
+        }
+
+    </script>
+</body>
+</html>
