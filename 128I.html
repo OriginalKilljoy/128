@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>128i</title>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script>
+        let inputTimes;
+        let firstNumber;
+        let secondNumber;
+        let thirdNumber;
+
+        updateView();
+        
+        function updateView(){
+            inputTimes = 0;
+            let firstNumber = '';
+            let secondNumber = '';
+            let thirdNumber = '';
+
+            document.getElementById('app').innerHTML = /*HTML*/`
+            <input type="number" id="numberValue" onchange="saveNumber(this.value), inputTimes++">
+            <div id="result"></div>
+            `;
+        }
+
+        function saveNumber(number){
+            number = Number(number);
+
+            if(inputTimes == 0){
+                firstNumber = number;
+            }
+            else if(inputTimes == 1){
+                secondNumber = number;
+            }
+            else if(inputTimes == 2){
+                thirdNumber = number;
+                findHighestNumber();
+            }
+            document.getElementById('numberValue').value = '';
+        }
+
+        function findHighestNumber(){
+            let highestNumber;
+
+            if(firstNumber > secondNumber && firstNumber > thirdNumber){
+                highestNumber = firstNumber;
+            }
+            else if(secondNumber > firstNumber && secondNumber > thirdNumber){
+                highestNumber = secondNumber;
+            }
+            else{
+                highestNumber = thirdNumber;
+            }
+
+            document.getElementById('result').innerHTML = /*HTML*/`
+            <div>Du skrev:
+                <ul>
+                    <li>${firstNumber}</li>
+                    <li>${secondNumber}</li>
+                    <li>${thirdNumber}</li>
+                </ul>
+                <div>Det høyeste tallet er ${highestNumber}</div> 
+            </div>
+
+            <button onclick="updateView()">Prøv igjen</button>
+            `;
+        }
+    </script>
+</body>
+</html>

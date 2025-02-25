@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>128j</title>
+    <style>
+        .board{
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            border: solid 2px black;
+            height: 300px;
+            width: 300px;
+            user-select: none;
+        }
+
+        .square{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: solid 2px black;
+            margin: 2px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script>
+        updateView();
+
+        function updateView(){
+            document.getElementById('app').innerHTML = /*HTML*/`
+            <div class="board">
+                <div id="square1" class="square" onclick="movePiece(this.id)">1</div>
+                <div id="square2" class="square" onclick="movePiece(this.id)">2</div>
+                <div id="square3" class="square" onclick="movePiece(this.id)">3</div>
+                <div id="square4" class="square" onclick="movePiece(this.id)">4</div>
+                <div id="square5" class="square" onclick="movePiece(this.id)">5</div>
+                <div id="square6" class="square" onclick="movePiece(this.id)">6</div>
+                <div id="square7" class="square" onclick="movePiece(this.id)">7</div>
+                <div id="square8" class="square" onclick="movePiece(this.id)">8</div>
+                <div id="square0" class="square"></div>
+            </div>
+            `;
+        }
+
+        function movePiece(squareId){
+            console.log(squareId);
+        }
+    </script>
+</body>
+</html>

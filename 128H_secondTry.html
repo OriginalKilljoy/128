@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>128h - second try</title>
+    <style>
+        .calculator{
+            display: grid;
+            grid-template-columns: 8fr 2fr;
+            grid-template-rows: 2fr 8fr;
+            grid-template-areas:
+            "screen screen"
+            "numberPad tools";
+            border: black solid 5px;
+            height: 400px;
+            width: 300px;
+            background-color: lightgray;
+        }
+
+        .display{
+            grid-area: screen;
+            border: solid gray 2px;
+            margin: 5px;
+            background-color: whitesmoke;
+            font-size: 200%;
+            display: flex;
+            justify-content: end;
+            align-items: center;
+        }
+
+        .numberPad{
+            grid-area: numberPad;
+            border: solid gray 2px;
+            margin: 5px;
+            font-size: 150%;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            align-items: center;
+            justify-items: center;
+            user-select: none;
+        }
+
+        .numberPad > div{
+            border: solid black 2px;
+            height: 40px;
+            width: 40px;
+            cursor: pointer;
+            align-content: center;
+            background-color: gray;
+        }
+
+        .tools{
+            grid-area: tools;
+            margin: 5px;
+            user-select: none;
+        }
+
+        .tools > div{
+            border: solid black 2px;
+            height: 40px;
+            width: 40px;
+            cursor: pointer;
+            align-content: center;
+            background-color: gray;
+            margin: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script>
+        let selectedTool;
+        let equation = '';
+
+        updateView()
+
+        function updateView(){
+            document.getElementById('app').innerHTML = /*HTML*/`
+            <div class="calculator">
+                <div class="display" id="display"></div>
+                <div class="numberPad">
+                    <div onclick="selectNumber('1')">1</div>    
+                    <div onclick="selectNumber('2')">2</div>    
+                    <div onclick="selectNumber('3')">3</div>    
+                    <div onclick="selectNumber('4')">4</div>    
+                    <div onclick="selectNumber('5')">5</div>    
+                    <div onclick="selectNumber('6')">6</div>    
+                    <div onclick="selectNumber('7')">7</div>    
+                    <div onclick="selectNumber('8')">8</div>    
+                    <div onclick="selectNumber('9')">9</div>  
+                    <div onclick="selectNumber('0')">0</div>  
+                </div>
+                <div class="tools">
+                    <div onclick="selectTool('+')">+</div>
+                    <div onclick="selectTool('-')">-</div>
+                    <div onclick="selectTool('*')">*</div>
+                    <div onclick="selectTool('/')">/</div>
+                    <div onclick="calculateNumbers()">=</div>
+                    <div onclick="clearEquation()">null ut</div>
+                </div>
+            </div>
+            `;
+        }
+
+        function selectNumber(number){
+            document.getElementById('display').innerHTML += number;
+            equation += number;
+        }
+
+        function selectTool(tool){
+            document.getElementById('display').innerHTML = tool;
+            equation += tool;
+        }
+
+        function calculateNumbers(){
+            let result = eval(equation);
+            document.getElementById('display').innerHTML = result;
+        }
+
+        function clearEquation(){
+            equation = '';
+            document.getElementById('display').innerHTML = '';
+        }
+
+    </script>
+</body>
+</html>
