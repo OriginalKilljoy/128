@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>128e-f</title>
+    <style>
+        .boardGrid{
+            display: grid;
+            grid-template-columns: 100px 100px;
+            grid-template-rows: 100px 100px;
+        }
+        .square{
+            margin: 5px;
+            background-color: gray;
+            border: black solid 2px;
+        }
+        .selected{
+            margin: 5px;
+            background-color: yellow;
+            border: black solid 2px;
+        }
+
+    </style>
+</head>
+<body>
+    <div id="app"></div>
+
+    <script>
+
+        //MODEL
+        let startTime;
+        let finishTime = '';
+
+
+        //VIEW
+        drawBoard();
+
+        function drawBoard(){
+            let selectedIndex = getRandomSquare();
+            document.getElementById('app').innerHTML = /*HTML*/`
+            <div class="boardGrid">
+                <div id="0" class="square"></div>
+                <div id="1" class="square"></div>
+                <div id="2" class="square"></div>
+                <div id="3" class="square"></div>
+            </div>
+            <div>${finishTime}</div>
+            `;
+            document.getElementById(selectedIndex).outerHTML = /*HTML*/`
+            <div id="${selectedIndex}" class="selected" onclick="countSeconds()"></div>
+            `;
+            startTime = new Date().getTime();
+        }
+
+
+        //CONTROLLER
+        function getRandomSquare(){
+            return Math.floor(Math.random()*4);
+        }
+
+        function countSeconds(){
+            finishTime = (new Date().getTime() - startTime) / 1000;
+            drawBoard();
+        }
+
+    </script>
+</body>
+</html>
